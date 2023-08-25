@@ -13,5 +13,4 @@ class Like < ApplicationRecord
   end
 
   after_create :increment_post_like_counter
-
 end
