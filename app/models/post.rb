@@ -4,12 +4,11 @@ class Post < ApplicationRecord
   def recent_comments(limit = 5)
     comments.order(created_at: :desc).limit(limit)
   end
-
-  def increment_comment_counter
-    update(comment_counter: comment_counter + 1)
+  def recent_posts
+    posts.order(created_at: :desc).limit(3)
   end
 
-  def increment_like_counter
-    update(like_counter: like_counter + 1)
+  def increment_posts_counter
+    update(posts_counter: posts_counter + 1)
   end
 end
