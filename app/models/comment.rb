@@ -1,8 +1,6 @@
 class Comment < ApplicationRecord
-  belongs_to :user
+  belongs_to :user, class_name: 'User', foreign_key: 'user_id'
   belongs_to :post
-
-  after_create :increment_post_comment_counter
 
   private
 
@@ -11,6 +9,8 @@ class Comment < ApplicationRecord
   end
 
   def increment_comment_counter
-    update(comment_counter: comment_counter + 1)
+    update(comment_counter: self.comment_counter + 1)
   end
+
+  after_create :increment_post_comment_counter
 end
