@@ -81,7 +81,7 @@ Change directory to the project folder
 Then, run the following command to start the app
 
 ```sh
-    rails server
+    rails s
 ```
 
 ## 👥 Authors <a name="authors"></a>
