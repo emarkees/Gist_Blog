@@ -1,5 +1,4 @@
-# database would be created to the postgres
-
+# database would be created to the postgre\
 development:
   adapter: postgresql
   encoding: unicode
