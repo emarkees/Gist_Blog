@@ -9,9 +9,8 @@ class Comment < ApplicationRecord
   def increment_post_comment_counter
     post.increment_comment_counter
   end
-  
+
   def increment_comment_counter
     update(comment_counter: comment_counter + 1)
   end
-
 end
