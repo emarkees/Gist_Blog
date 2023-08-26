@@ -3,10 +3,10 @@ require 'rails_helper'
 RSpec.describe Comment, type: :model do
   let(:user) { User.create(name: 'Mary', posts_counter: 0) }
   let(:post) do
-    Post.create(user: user, title: 'My recent post', text: 'Rule your world', comment_counter: 0, like_counter: 0)
+    Post.create(user:, title: 'My recent post', text: 'Rule your world', comment_counter: 0, like_counter: 0)
   end
 
-  subject { Comment.create(user: user, post:, text: 'I love the post') }
+  subject { Comment.create(user:, post:, text: 'I love the post') }
 
   context '#validation' do
     it 'should validate_presence_of(:text)' do
