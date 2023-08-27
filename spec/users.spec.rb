@@ -28,4 +28,24 @@ RSpec.describe User, type: :model do
       expect(subject).to_not be_valid
     end
   end
+
+  context 'check if the most_recent_posts method is working' do
+    it 'should return the most recent post' do
+      first_user = User.create(name: 'Adeyemi', posts_counter: 0)
+
+      second_post = Post.create(user: first_user, title: 'My second post', text: 'second post',
+                                comment_counter: 0, like_counter: 0, created_at: 'Fri, 28 Jul 2023 09:53:46')
+
+      third_post = Post.create(user: first_user, title: 'My third post', text: 'third post', comment_counter: 0,
+                               like_counter: 0, created_at: 'Fri, 28 Jul 2023 09:54:46')
+
+      fourth_post = Post.create(user: first_user, title: 'My fourth', text: 'fourth post',
+                                comment_counter: 0, like_counter: 0, created_at: 'Fri, 28 Jul 2023 09:58:46')
+
+      recent_posts = first_user.most_recent_posts
+
+      expect(recent_posts.length).to eq(3)
+      expect(recent_posts).to eq([fourth_post, third_post, second_post])
+    end
+  end
 end
