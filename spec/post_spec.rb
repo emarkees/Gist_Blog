@@ -76,7 +76,8 @@ RSpec.describe Post, type: :model do
   context '#callbacks' do
     it 'should increment the user\'s posts_counter after save' do
       expect do
-        Post.create(user_id: user.id, title: 'My first post', text: 'Here is my post', comment_counter: 0, like_counter: 0)
+        Post.create(user_id: user.id, title: 'My first post', text: 'Here is my post', comment_counter: 0,
+                    like_counter: 0)
         user.reload
       end.to change(user, :posts_counter).by(1)
     end
