@@ -1,11 +1,33 @@
 require 'rails_helper'
 
 RSpec.describe Post, type: :model do
-  let(:user) { User.create(name: 'David', posts_counter: 0) }
+  let(:user) { User.create(name: 'Oladayo', posts_counter: 0) }
 
   subject do
     Post.create(user_id: user.id, title: 'My first post', text: 'Here is my post.', comment_counter: 0, like_counter: 0)
   end
+
+  let(:first_comment) do
+    Comment.create(post: subject, user:, text: 'first comment', created_at: 'Fri, 28 Jul 2023 04:51:46')
+  end
+  let(:second_comment) do
+    Comment.create(post: subject, user:, text: 'second comment', created_at: 'Fri, 28 Jul 2023 05:51:46')
+  end
+  let(:third_comment) do
+    Comment.create(post: subject, user:, text: 'third comment', created_at: 'Fri, 28 Jul 2023 06:51:46')
+  end
+  let(:fourth_comment) do
+    Comment.create(post: subject, user:, text: 'fourth comment', created_at: 'Fri, 28 Jul 2023 07:51:46')
+  end
+  let(:fifth_comment) do
+    Comment.create(post: subject, user:, text: 'fifth comment', created_at: 'Fri, 28 Jul 2023 08:51:46')
+  end
+  let(:sixth_comment) do
+    Comment.create(post: subject, user:, text: 'sixth comment', created_at: 'Fri, 28 Jul 2023 09:51:46')
+  end
+
+  let(:first_like) { Like.create(post: subject, user:) }
+  let(:second_like) { Like.create(post: subject, user:) }
 
   shared_examples 'a non-negative integer' do |attribute|
     it 'counter should not be a negative number' do
@@ -43,7 +65,7 @@ RSpec.describe Post, type: :model do
 
     it 'should validate_integer(:comment_counter)' do
       subject.comment_counter = 1.7
-      expect(subject).to be_valid
+      expect(subject).to_not be_valid
     end
 
     it 'should validate_integer_greater_than_zero(:comment_counter)' do
