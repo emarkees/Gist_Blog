@@ -72,5 +72,29 @@ RSpec.describe Post, type: :model do
       subject.comment_counter = 1
       expect(subject).to be_valid
     end
+    
+  end
+  context '#callbacks' do
+    it 'should increment the user\'s posts_counter after save' do
+      expect {
+        Post.create(user_id: user.id, title: 'My first post', text: 'Here is my post', comment_counter: 0, like_counter: 0)
+        user.reload
+      }.to change(user, :posts_counter).by(1)
+    end
+  end
+  context '#recent_comments' do
+    it 'should return the most recent comments' do
+      first_comment
+      second_comment
+      third_comment
+      fourth_comment
+      fifth_comment
+      sixth_comment
+
+      recent_comments = subject.recent_comments
+
+      expect(recent_comments.length).to eq(5)
+      expect(recent_comments).to eq([sixth_comment, fifth_comment, fourth_comment, third_comment, second_comment])
+    end
   end
 end
