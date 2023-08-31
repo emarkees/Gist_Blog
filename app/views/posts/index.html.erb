@@ -1,0 +1,39 @@
+<h1>All Posts by Users</h1>
+<main>
+  
+  <div>
+    <ul>
+      <% @posts.includes(:user, :comments, comments: :user).each do |post| %>
+        <%= link_to user_post_path(user_id: post.user.id, id: post.id) do %>
+          <div>
+            <li>
+              <div>
+                <h2><%= post.title %></h2>
+                <h4><%= post.text %></h4>
+                <div>
+                  <p class="countText">Comments: <%= post.comment_counter %>, Likes: <%= post.like_counter %></p>
+                </div>
+              </div>
+            </li>
+            <div>
+              <h3>Comments:</h3>
+              <ul>
+                <% if post.comments.any? %>
+                  <% post.comments.each do |comment| %>
+                    <li>
+                      <p><%= comment.user.name %> : <%= comment.text %></p>
+                    </li>
+                  <% end %>
+                <% else %>
+                  <li>
+                    <p>No comments yet.</p>
+                  </li>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </ul>
+  </div>
+</main>

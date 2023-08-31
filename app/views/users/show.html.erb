@@ -1,10 +1,26 @@
-<p style="color: green"><%= notice %></p>
-
-<%= render @user %>
-
+<h1>Welcome sir</h1>
 <div>
-  <%= link_to "Edit this user", edit_user_path(@user) %> |
-  <%= link_to "Back to users", users_path %>
-
-  <%= button_to "Destroy this user", @user, method: :delete %>
+      <%= image_tag @user.photo %>
 </div>
+<div>
+  <h1><%= @user.name %></h1>
+  <p>Number of posts: <%= @user.posts_counter || 0 %></p>
+</div>
+<div>
+  <h3>Bio</h3>
+  <p><%= @user.bio %></p>
+</div>
+</div>
+<ul>
+  <% @user.posts.each do |post| %>
+    <%= link_to user_posts_path(@user.id, @post) do %>
+    <li>
+      <h3><%= post.title %></h3>
+      <h4><%= post.text %></h4>
+      <div>
+        <p>Comments: <%= post.comments_counter %> | Likes: <%= post.likes_counter %></p>
+      </div>
+    </li>
+    <% end %>
+  <% end %>
+</ul>
