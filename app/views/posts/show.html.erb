@@ -1,0 +1,16 @@
+<main>
+  <div>
+    <div>
+        <%= image_tag @user.photo %>
+  </div>
+    <div>
+      <h3>
+        Post <%= "#" %><%= @post.id %> by <%= @post.user.name %>
+      </h3>
+      <div>
+        <p> Comments: <%= @post.comment_counter %>, Likes: <%= @post.like_counter %> </p>
+      </div>
+    </div>
+    <p><%= @post.text %></p>
+  </div>
+</main>
