@@ -1,17 +1,25 @@
 <main>
-  <section>
-    <ul>
-    
-    <% @users.each do |user| %>
-      <%= link_to user do %>
-        <li class="d-flex">
-          <div class="d-flex spc-btw m-100 f-end p-1 wrap bg">
-            <h2><%= user.name %></h2>
-            <p class="m-50">Number of posts: <%= user.posts_counter || 0 %></p>
-          </div>
-        </li>
+<section>
+  <ul>
+  <% @users.each do |user| %>
+    <%= link_to user do %>
+      <li class="d-flex">
+        <div class="user-image wrap pd-1">
+        <% if user.photo.present? %>
+        <%= image_tag user.photo, class: 'list_image', alt: 'photo' %>
+      <% else %>
+        <!-- Handle the case where the user's photo is missing or nil -->
+        <!-- You can display a default image or any other appropriate message -->
       <% end %>
+        </div>
+        <div class="d-flex spc-btw m-100 f-end p-1 wrap bg">
+        
+          <h2><%= user.name %></h2>
+          <p class="m-50">Number of posts: <%= user.posts_counter || 0 %></p>
+        </div>
+      </li>
     <% end %>
-    </ul>
-  <section/>
+  <% end %>
+  </ul>
+<section/>
 </main>

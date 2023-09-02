@@ -9,40 +9,38 @@
         <p class="m-50">Number of posts: <%= @user.posts_counter || 0 %></p>
       </div>
     </div>
-  </section>
+  <section />
   <section>
     <ul>
-      <% @posts.includes(:user, :comments, comments: :user).each do |post| %>
-        <%= link_to user_post_path(user_id: post.user.id, id: post.id) do %>
-          <div>
-            <li class="flex p-1 bg wrap">
-              <div>
-                <h2><%= post.title %></h2>
-                <p><%= post.text %></p>
-                <div class="d-flex right">
-                  <p class="countText">Comments: <%= post.comment_counter %>, Likes: <%= post.like_counter %></p>
-                </div>
-              </div>
-            </li>
-            <div class="p-1 wrap">
-              <h3>Comments:</h3>
-              <ul>
-                <% if post.comments.any? %>
-                  <% post.comments.each do |comment| %>
-                    <li>
-                      <p><%= comment.user.name %> : <%= comment.text %></p>
-                    </li>
-                  <% end %>
-                <% else %>
-                  <li>
-                    <p>No comments yet.</p>
-                  </li>
-                <% end %>
-              </ul>
-            </div>
-          </div>
-        <% end %>
+    <% @posts.includes(:user, :comments, comments: :user).each_with_index do |post, index| %>
+      <%= link_to user_post_path(user_id: post.user.id, id: post.id) do %>
+      <li class="flex p-1 bg wrap">
+      <div>Post #<%= index + 1 %>
+        <h3><%= post.title %></h3>
+        <p><%= post.text %></p>
+        <div class="d-flex right">
+          <p>Comments: <%= post.comments_counter || 0 %> | Likes: <%= post.likes_counter || 0 %></p>
+        </div>
+
+        <div class="p-1 wrap">
+          <h3>Comments:</h3>
+          <ul>
+            <% if post.comments.any? %>
+              <% post.comments.each do |comment| %>
+                <li>
+                  <p><%= comment.user.name %> : <%= comment.text %></p>
+                </li>
+              <% end %>
+            <% else %>
+              <li>
+                <p>No comments yet.</p>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </li>
       <% end %>
+    <% end %>
     </ul>
-  </section>
+  <section>
 </main>
