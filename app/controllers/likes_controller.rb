@@ -1,69 +1,18 @@
 class LikesController < ApplicationController
-  before_action :set_like, only: %i[show edit update destroy]
-
-  # GET /likes or /likes.json
-  def index
-    @likes = Like.all
-  end
-
-  # GET /likes/1 or /likes/1.json
-  def show; end
-
-  # GET /likes/new
-  def new
-    @like = Like.new
-  end
-
-  # GET /likes/1/edit
-  def edit; end
-
-  # POST /likes or /likes.json
   def create
-    @like = Like.new(like_params)
+    @post = Post.find(params[:post_id])
+    existing_like = @post.likes.find_by(user: current_user)
 
-    respond_to do |format|
+    if existing_like
+      flash[:alert] = 'You have already liked this post.'
+    else
+      @like = current_user.likes.new(post: @post)
       if @like.save
-        format.html { redirect_to like_url(@like), notice: 'Like was successfully created.' }
-        format.json { render :show, status: :created, location: @like }
+        flash[:notice] = 'You liked the post successfully.'
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @like.errors, status: :unprocessable_entity }
+        flash[:alert] = 'Something went wrong. Please try again.'
       end
     end
-  end
-
-  # PATCH/PUT /likes/1 or /likes/1.json
-  def update
-    respond_to do |format|
-      if @like.update(like_params)
-        format.html { redirect_to like_url(@like), notice: 'Like was successfully updated.' }
-        format.json { render :show, status: :ok, location: @like }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @like.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /likes/1 or /likes/1.json
-  def destroy
-    @like.destroy
-
-    respond_to do |format|
-      format.html { redirect_to likes_url, notice: 'Like was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-  end
-
-  private
-
-  # Use callbacks to share common setup or constraints between actions.
-  def set_like
-    @like = Like.find(params[:id])
-  end
-
-  # Only allow a list of trusted parameters through.
-  def like_params
-    params.require(:like).permit(:user_id, :post_id, :created_at, :updated_at)
+    redirect_to user_post_path(@post.user, @post)
   end
 end
