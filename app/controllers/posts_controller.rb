@@ -7,5 +7,6 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
+    puts "params[:id]: #{params[:id]}"
   end
 end
