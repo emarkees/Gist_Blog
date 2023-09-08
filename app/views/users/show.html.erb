@@ -2,44 +2,42 @@
   <section>
     <div class="d-flex">
       <div class="user-image wrap">
-        <%= image_tag @user.photo, class: 'list_image', alt: 'photo'%>
+        <%= image_tag @user.photo, class: 'list_image', alt: 'photo' %>
       </div>
       <div class="d-flex spc-btw m-100 f-end p-1 wrap">
         <h2><%= @user.name %></h2>
         <p class="m-50">Number of posts: <%= @user.posts_counter || 0 %></p>
       </div>
     </div>
-  <section />
+  </section>
   <section class="bio">
     <div class="p-1 wrap">
       <h3>Bio</h3>
-      <p> <%= @user.bio %> </p>
+      <p><%= @user.bio %></p>
     </div>
-    <div class="d-flex mt-1 mb-1 center ">
+    <div class="d-flex mt-1 mb-1 center">
       <%= link_to "Add New Post", new_user_post_path(@user), class: "btn" %>
     </div>
   </section>
   <section>
     <div class="p-1 wrap">
       <ul>
-      <% @user.most_recent_posts.each_with_index do |post, index| %>
-        <%= link_to user_post_path(@user.id, post.id) do %>
-        <li class="flex p-1 wrap bg">
-          <div>Post #<%= index + 1 %>
-            <h3><%= post.title %></h3>
+        <% @user.most_recent_posts.each_with_index do |post, index| %>
+          <li class="flex p-1 wrap bg">
+            <div>Post #<%= index + 1 %></div>
+            <h3><%= link_to post.title, user_post_path(@user, post) %></h3>
             <p><%= post.text %></p>
             <div class="d-flex right">
               <p>Comments: <%= post.comment_counter || 0 %> | Likes: <%= post.like_counter || 0 %></p>
-          </div>
-        </li>
-      </div>
-      <% end %>
-    <% end %>
-  </ul>
-    <%if @user.posts.length < 0 %>
-      <div class="d-flex center">
-        <%= link_to "See all posts", user_posts_path(@user.id), class: "btn" %>
-      <div>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+    <% if @user.posts.length > 2 %>
+    <div class="d-flex center">
+      <%= link_to "See all posts", user_posts_path(@user.id), class: "btn" %>
+    </div>
     <% end %>
   </section>
 </main>
