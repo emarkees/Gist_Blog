@@ -1,41 +1,34 @@
 <main>
-    <div class="d-flex column p-1  bg wrap">
-        <div class="d-flex spc-btw m-100 f-center">
-            <div class="d-flex f-center">
-                <p>Post #<%= @post.id %> by</p>
-                <h3><%= @post.user.name %></h3>
-            </div>
-            <div>
-                <p> Comments: <%= @post.comment_counter || 0 %> - Likes: <%= @post.like_counter || 0 %></p>
-            </div>
-        </div>
-        <div>
-            <p><%= @post.text %> </p>
-        </div>
-        <div>
-
-        <div class="d-flex m-100 col-gap-3 mb-1">
-           <%= link_to 'Add a comment', new_user_post_comment_path(@post.user.id, @post.id), class: "btn" %>
-           <%= form_with(url: user_post_likes_path(@post.user, @post), method: :post) do |form| %>
-            <%= form.submit 'Like', class: "btn"%>
-          <% end %>
-        </div>
-
-        <div class="p-1 wrap">
-            <h3>Comments:</h3>
-            <ul>
-            <% if @post.recent_comments.any? %>
-                <% @post.comments.each do |comment| %>
-                <li class="bg">
-                    <p><%=comment.user.name %> : <%=comment.text %></p>
-                </li>
-                <% end %>
-            <% else %>
-                <li>
-                <p>No comments yet.</p>
-                </li>
-            <% end %>
-            </ul>
-        </div>
+  <div class="d-flex column p-1 bg wrap">
+    <div class="d-flex spc-btw m-100 f-center">
+      <div class="d-flex f-center">
+        <p>Post #<%= @post.id %> by</p>
+        <h3><%= @post.user.name %></h3>
+      </div>
+      <div>
+        <p>Comments: <%= @post.comment_counter || 0 %> - Likes: <%= @post.like_counter || 0 %></p>
+      </div>
     </div>
+    <div>
+      <h2><%= @post.title %></h2>
+      <p><%= @post.text %></p>
+    </div>
+
+    <div class="p-1 wrap">
+      <h3>Comments:</h3>
+      <ul>
+        <% if @post.recent_comments.present? %>
+          <% @post.comment.includes(:user).each do |comment| %>
+            <li class="bg">
+              <p><%= comment.user.name %> : <%= comment.text %></p>
+            </li>
+          <% end %>
+        <% else %>
+          <li>
+            <p>No comments yet.</p>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
 </main>
