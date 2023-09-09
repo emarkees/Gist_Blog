@@ -14,7 +14,7 @@
  *= require_self
  */
 
-body {
+ body {
   margin: 5rem 10rem;
 }
 
@@ -34,11 +34,20 @@ ul {
 }
 
 .btn {
-  background-color: #1c1818ed;
-  padding: 1rem 1.5rem;
+  background-color: #fff;
+  padding: 1rem;
+  width: 100%;
+  height: 25%;
   text-align: center;
   margin-top: 1rem;
-  color: #fff;
+  color: #000;
+}
+
+.form-title,
+textarea {
+  padding: 12px 5px;
+  width: 100%;
+  margin-bottom: 1rem;
 }
 
 .list_image {
@@ -67,6 +76,22 @@ ul {
   width: 50%;
 }
 
+.m-33 {
+  width: 33%;
+}
+
+.m-1 {
+  margin-top: 10rem;
+}
+
+.mt-1 {
+  margin-top: 2rem;
+}
+
+.mb-1 {
+  margin-bottom: 3rem;
+}
+
 .f-end {
   align-items: flex-end;
 }
@@ -87,6 +112,10 @@ ul {
   padding: 1rem;
 }
 
+.p-2 {
+  padding: 2rem;
+}
+
 .bg {
   background-color: #fff;
 }
@@ -97,4 +126,28 @@ ul {
 
 .column {
   flex-direction: column;
+}
+
+.middle {
+  margin: 0 auto;
+}
+
+.col-gap-3 {
+  gap: 16px;
+}
+
+.col-gap-1 {
+  gap: 8px;
+}
+
+.commentator {
+  font-size: 12px;
+}
+
+.txt-center {
+  text-align: center;
+}
+
+.txt-right {
+  text-align: right;
 }
